@@ -5,56 +5,104 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.flowz.clarigojobtaskapp.R
+import com.flowz.clarigojobtaskapp.adapter.CeAdapter
+import com.flowz.clarigojobtaskapp.databinding.FragmentListBinding
+import com.flowz.clarigojobtaskapp.model.ClarigoEmployee
+import com.flowz.clarigojobtaskapp.roomdb.ClarigoEmployeeViewModel
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class ListFragment : Fragment(R.layout.fragment_list), CeAdapter.RowClickListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var ceAdapter: CeAdapter
+    private val viewModel: ClarigoEmployeeViewModel by viewModels()
+    lateinit var navController : NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        _binding = FragmentListBinding.bind(view)
+
+        loadRecylcerView()
+
+    }
+    private fun loadRecylcerView(){
+
+        viewModel.insertClarigoEmployee(  ClarigoEmployee(
+            "Prachi",
+            "Prachi@gmail.com",
+            "12/04/1990",
+            null
+        ))
+        viewModel.insertClarigoEmployee(  ClarigoEmployee(
+            "John",
+            "John@gmail.com",
+            "19/04/1990",
+            null
+        ))
+
+        ceAdapter = CeAdapter(this@ListFragment)
+
+        viewModel.ceEmployeesFromDb.observe(viewLifecycleOwner, Observer {
+            ceAdapter.submitList(it)
+        })
+
+        binding.ceRecyclerview.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = ceAdapter
+
+        }
+        navController = Navigation.findNavController(requireView())
+
+        binding.fab.setOnClickListener {
+            navController.navigate(R.id.action_listFragment_to_addFragment)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+    override fun onEditClickListener(clarigoEmployee: ClarigoEmployee) {
+
+
+
+        Toast.makeText(requireContext(), "EDIT CLICKED", Toast.LENGTH_LONG).show()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onDeleteClickListener(clarigoEmployee: ClarigoEmployee) {
+
+        AlertDialog.Builder(this.requireContext()).setTitle(getString(R.string.delete_employee_title))
+            .setMessage(getString(R.string.sure_to_delete))
+            .setPositiveButton(getString(R.string.ok)) { _, _ ->
+                viewModel.deleteClarigoEmployee(clarigoEmployee)
+
+                Snackbar.make(binding.ceRecyclerview, " ${clarigoEmployee.name} Deleted", Snackbar.LENGTH_LONG)
+                    .setAction("UNDO"){ viewModel.insertClarigoEmployee(clarigoEmployee)}.show()
+
             }
+            .setNegativeButton(getString(R.string.cancel_delete)){ _, _ -> }
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show()
+
+
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
+
+
 }

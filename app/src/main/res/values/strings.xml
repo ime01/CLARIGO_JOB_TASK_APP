@@ -2,4 +2,13 @@
     <string name="app_name">CLARIGO JOB TASK APP</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_placholder_image">ce_staff_image</string>
+    <string name="delete_employee_title">Delete Clarigo Employee</string>
+    <string name="sure_to_delete">Are you sure you?</string>
+    <string name="ok">YES</string>
+    <string name="cancel_delete">NO</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="email">Enter Email</string>
+    <string name="select_dob">Select Dob</string>
+    <string name="save_employee">Save</string>
 </resources>

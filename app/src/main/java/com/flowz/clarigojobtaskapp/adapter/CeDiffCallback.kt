@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.flowz.clarigojobtaskapp.model.ClarigoEmployee
 
 
-class OraNumDiffCallback : DiffUtil.ItemCallback<ClarigoEmployee>(){
+class DiffCallback : DiffUtil.ItemCallback<ClarigoEmployee>(){
     override fun areItemsTheSame(oldItem: ClarigoEmployee, newItem: ClarigoEmployee): Boolean {
         return oldItem.personId == newItem.personId
     }

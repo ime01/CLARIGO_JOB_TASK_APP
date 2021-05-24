@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import kotlinx.android.parcel.Parcelize
+//import kotlinx.parcelize
 
 @Parcelize
 @Entity(tableName = "clarigoemployee_table")
@@ -13,7 +14,7 @@ data class ClarigoEmployee (
     val name : String,
     val email: String,
     val dateOfBirth: String,
-    val profilePicture: String
+    val profilePicture: Uri? = null
     ): Parcelable{
         @PrimaryKey(autoGenerate = true)
         var personId: Int = 0
