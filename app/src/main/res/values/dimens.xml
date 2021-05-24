@@ -6,4 +6,5 @@
     <dimen name="img_dimens">200dp</dimen>
     <dimen name="dob_size">16sp</dimen>
     <dimen name="sixteen_dp_padding">16dp</dimen>
+    <dimen name="androidicon_dimen">250dp</dimen>
 </resources>

@@ -11,4 +11,14 @@
     <string name="email">Enter Email</string>
     <string name="select_dob">Select Dob</string>
     <string name="save_employee">Save</string>
+    <string name="enter_name_error">Ensure you have entered your name</string>
+    <string name="enter_valid_email">Ensure you have entered a valid email</string>
+    <string name="chose_dob">Chose Date Of Birth</string>
+    <string name="new_employee_saved">New Employee Saved</string>
+    <string name="enter_birth_date">Enter your date of birth</string>
+    <string name="submit_birth_date">SUBMIT BIRTH DATE</string>
+    <string name="cancel_dob">CANCEL</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="open_camera">Open Camera</string>
 </resources>
