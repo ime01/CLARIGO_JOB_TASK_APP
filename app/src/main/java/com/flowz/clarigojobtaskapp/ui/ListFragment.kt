@@ -47,7 +47,6 @@ class ListFragment : Fragment(R.layout.fragment_list), CeAdapter.RowClickListene
     private lateinit var ceAdapter: CeAdapter
     private val viewModel: ClarigoEmployeeViewModel by viewModels()
     private var imageUri : Uri? = null
-//    lateinit var navController : NavController
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,7 +70,6 @@ class ListFragment : Fragment(R.layout.fragment_list), CeAdapter.RowClickListene
             adapter = ceAdapter
 
         }
-//        navController = Navigation.findNavController(requireView())
 
         binding.fab.setOnClickListener {
             val intent = Intent(requireActivity(), MapsActivity::class.java)
@@ -115,78 +113,11 @@ class ListFragment : Fragment(R.layout.fragment_list), CeAdapter.RowClickListene
 //            .into(profileImage)
     }
 
-
-    fun checkPermssion(){
-        if(Build.VERSION.SDK_INT>=23){
-            if (ActivityCompat.checkSelfPermission(this.requireActivity()
-                    ,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-
-                requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                   READIMAGE
-                )
-                return
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode){
-          READIMAGE ->{
-                if (grantResults[0]== PackageManager.PERMISSION_GRANTED){
-                    pickImageFromGallery()
-                }else{
-                    showToast("Cannnot access your images",this.requireContext() )
-                }
-            }else-> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUESTCODE && resultCode == Activity.RESULT_OK && data!!.data != null ){
-
-            imageUri = data.data
-//            binding.newPhoto.setImageURI(imageUri)
-//            showSnackbar(binding.ceMapFab, "Profile passport selected for upload....")
-        }
-        else if (requestCode == IMAGECAPUTRECODE && resultCode == Activity.RESULT_OK){
-
-            val rgPhoto = data!!.extras?.get("data") as Bitmap
-//            binding.newPhoto.setImageBitmap(rgPhoto)
-
-            imageUri = getImageUri(requireContext(), rgPhoto)
-
-        }
-    }
-
-    private fun pickImageFromGallery() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent,
-            REQUESTCODE
-        )
-    }
-
-    private fun openCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, IMAGECAPUTRECODE)
-    }
-
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
-
-    companion object {
-        val READIMAGE = 100
-        val REQUESTCODE = 101
-        val IMAGECAPUTRECODE = 402
-    }
 
 
 
