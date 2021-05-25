@@ -11,15 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/new_photo"
+    <ImageView
+        android:id="@+id/update_photo"
         android:layout_width="@dimen/user_placeholder_dimen"
         android:layout_height="@dimen/user_placeholder_dimen"
         android:layout_marginTop="16dp"
-        android:scaleType="fitCenter"
-        app:riv_border_color="@color/cardview_dark_background"
-        app:riv_corner_radius="30dp"
-        app:riv_border_width="2dip"
         android:contentDescription="@string/user_placholder_image"
         android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,10 +35,10 @@
             app:hintEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/new_photo">
+            app:layout_constraintTop_toBottomOf="@id/update_photo">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ce_new_name"
+                android:id="@+id/update_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_person_24"
@@ -67,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@id/name_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ce_new_email"
+                android:id="@+id/update_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_email_24"
@@ -77,7 +73,7 @@
 
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/edit_passport"
+        android:id="@+id/update_edit_passport"
         android:layout_width="@dimen/icons_dimen"
         android:layout_height="@dimen/icons_dimen"
         android:background="@color/background"
@@ -95,7 +91,7 @@
         app:layout_constraintVertical_bias="0.869" />
 
         <TextView
-            android:id="@+id/ce_select_dob"
+            android:id="@+id/update_dob"
             style="@style/OtherStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -110,29 +106,18 @@
 
 
     <Button
-        android:id="@+id/save_new_employee"
+        android:id="@+id/update_employee"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/background"
         android:fontFamily="@font/almendra"
-        android:text="@string/save_employee"
+        android:text="@string/update"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/ce_select_dob"
-        app:layout_constraintStart_toStartOf="@+id/ce_select_dob"
-        app:layout_constraintTop_toBottomOf="@id/ce_select_dob" />
+        app:layout_constraintEnd_toEndOf="@+id/update_dob"
+        app:layout_constraintStart_toStartOf="@+id/update_dob"
+        app:layout_constraintTop_toBottomOf="@id/update_dob" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ce_map_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:src="@drawable/ic_baseline_map_24"
-            android:tint="#FFFFFF"
-            app:layout_constraintTop_toBottomOf="@id/save_new_employee"
-            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -21,4 +21,8 @@
     <string name="choose_image">Choose Image</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="open_camera">Open Camera</string>
+    <string name="clarigo_task">Clarigo-Task</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="edit_employee">Edit Employee</string>
+    <string name="update">Update</string>
 </resources>

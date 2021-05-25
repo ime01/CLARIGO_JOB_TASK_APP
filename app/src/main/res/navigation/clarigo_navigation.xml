@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clarigo_navigation.xml"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/listFragment"
@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.flowz.clarigojobtaskapp.HomeFragment"
+        android:name="com.flowz.clarigojobtaskapp.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 
