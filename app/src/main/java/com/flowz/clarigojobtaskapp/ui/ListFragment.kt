@@ -60,19 +60,6 @@ class ListFragment : Fragment(R.layout.fragment_list), CeAdapter.RowClickListene
     }
     private fun loadRecylcerView(){
 
-        viewModel.insertClarigoEmployee(  ClarigoEmployee(
-            "Prachi",
-            "Prachi@gmail.com",
-            "12/04/1990",
-            null
-        ))
-        viewModel.insertClarigoEmployee(  ClarigoEmployee(
-            "John",
-            "John@gmail.com",
-            "19/04/1990",
-            null
-        ))
-
         ceAdapter = CeAdapter(this@ListFragment)
 
         viewModel.ceEmployeesFromDb.observe(viewLifecycleOwner, Observer {
