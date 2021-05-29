@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,19 +20,26 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.flowz.byteworksjobtask.util.*
 import com.flowz.clarigojobtaskapp.R
 import com.flowz.clarigojobtaskapp.databinding.FragmentAddBinding
 import com.flowz.clarigojobtaskapp.databinding.FragmentListBinding
 import com.flowz.clarigojobtaskapp.model.ClarigoEmployee
 import com.flowz.clarigojobtaskapp.roomdb.ClarigoEmployeeViewModel
+import com.flowz.clarigojobtaskapp.util.Editable.Companion.EMPLOYEE
+import com.flowz.clarigojobtaskapp.util.Editable.Companion.EMPLOYEE1
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.E
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private const val ARG_EDIT1 = "edit"
 
 /**
  * A simple [Fragment] subclass.
@@ -40,10 +48,13 @@ private const val ARG_PARAM2 = "param2"
  */
 
 @AndroidEntryPoint
-class AddFragment : Fragment(R.layout.fragment_add) {
+class AddFragment() : Fragment(R.layout.fragment_add) {
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var read: String? = null
+    private var ceEditEmployee: ClarigoEmployee? = null
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
@@ -53,16 +64,62 @@ class AddFragment : Fragment(R.layout.fragment_add) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+//            ceEditEmployee = it.getParcelable("input2")
         }
+
+//        Log.e("TEST1", read!!)
+//        Log.e("TEST2", ceEditEmployee?.name!!)
+
+
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentAddBinding.bind(view)
+
+//        ceEditEmployee?.name?.let { showToast(it, requireContext()) }
+//        ceEditEmployee?.name?.let { Log.e("RECEIVE", it) }
+//        Log.e("RECEIVE", ceEditEmployee?.email!!)
+//        showToast(ceEditEmployee?.name!!, requireContext())
+
+//        showToast(read!!, requireContext())
+
+//        EMPLOYEE1?.observe(requireActivity(), {
+//            ceEditEmployee = it
+//
+//            showToast(ceEditEmployee?.name!!,  requireContext())
+//
+//        })
+
+        if (EMPLOYEE != null){
+            ceEditEmployee = EMPLOYEE
+
+            showToast(ceEditEmployee?.email!!,  requireContext())
+
+            binding.apply {
+
+                ceNewName.setText(ceEditEmployee?.name)
+                ceNewEmail.setText(ceEditEmployee?.email)
+                ceSelectDob.setText(ceEditEmployee?.dateOfBirth)
+
+                Glide.with(newPhoto)
+                        .load(ceEditEmployee?.profilePicture)
+                        .circleCrop()
+                        .placeholder(R.drawable.ic_baseline_person_24)
+                        .error(R.drawable.ic_baseline_person_24)
+                        .fallback(R.drawable.ic_baseline_person_24)
+                        .into(newPhoto)
+            }
+        }
 
         binding.apply {
 
@@ -223,7 +280,10 @@ class AddFragment : Fragment(R.layout.fragment_add) {
         val READIMAGE = 255
         val REQUESTCODE = 100
         val IMAGECAPUTRECODE = 400
+//        var EMPLOYEE: ClarigoEmployee? = null
+       val EMPLOYEE1: MutableLiveData<ClarigoEmployee>? = null
 
+        //
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             AddFragment().apply {

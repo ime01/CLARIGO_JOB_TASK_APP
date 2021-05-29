@@ -8,13 +8,21 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.flowz.byteworksjobtask.util.showSnackbar
+import com.flowz.clarigojobtaskapp.adapter.CeAdapter
 import com.flowz.clarigojobtaskapp.adapter.ViewPagerAdapter
+import com.flowz.clarigojobtaskapp.model.ClarigoEmployee
+import com.flowz.clarigojobtaskapp.ui.AddFragment
+import com.flowz.clarigojobtaskapp.ui.ListFragment
+import com.flowz.clarigojobtaskapp.util.Editable.Companion.EMPLOYEE
+import com.flowz.clarigojobtaskapp.util.Editable.Companion.EMPLOYEE1
+import com.flowz.clarigojobtaskapp.util.PassData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ListFragment.RowClickListenerFromFragment , PassData{
 
 //    private lateinit var navController: NavController
     private lateinit var viewPager: ViewPager2
@@ -32,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.tab_layout)
         viewPager = findViewById(R.id.ce_viewPager)
 
-        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle, this)
         viewPager.adapter = adapter
 
 
@@ -66,10 +74,24 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onEditClick(clarigoEmployee: ClarigoEmployee) {
+
+        viewPager.currentItem = 1
+        Toast.makeText(this, "Editing ${clarigoEmployee.name} From Activity", Toast.LENGTH_LONG).show()
+    }
+
+    override fun passData(clarigoEmployee: ClarigoEmployee) {
+
+//        val bundle = Bundle()
+//        bundle.putString("input", "HELLO TESTER ONE")
+//        bundle.putParcelable("input2", clarigoEmployee)
+//        val addFragment= AddFragment()
+//        addFragment.arguments = bundle
+    }
+
+
 //    override fun onSupportNavigateUp(): Boolean {
 //
 //        return navController.navigateUp()|| super.onSupportNavigateUp()
 //    }
-
-
 }

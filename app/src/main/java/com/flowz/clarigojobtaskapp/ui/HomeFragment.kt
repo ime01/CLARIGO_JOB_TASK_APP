@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -46,39 +47,39 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //
-        tabLayout = view.findViewById(R.id.tab_layout)
-        viewPager = view.findViewById(R.id.ce_viewPager)
+//        tabLayout = view.findViewById(R.id.tab_layout)
+//        viewPager = view.findViewById(R.id.ce_viewPager)
 //        ceCollectionAdapter = CollectionAdapter(this)
-        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
-        viewPager.adapter = adapter
-
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when(position){
-                0->{
-                    tab.text = "List"
-                }
-                1->{
-                    tab.text = "Add"
-                }
-            }
-
-        }.attach()
-
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                Toast.makeText(requireContext(), "ReSelected ${tab?.text}", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Toast.makeText(requireContext(), "UnSelected ${tab?.text}", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                Toast.makeText(requireContext(), "Selected ${tab?.text}", Toast.LENGTH_SHORT).show()
-            }
-        })
+//        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle, )
+//        viewPager.adapter = adapter
+//
+//
+//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+//            when(position){
+//                0->{
+//                    tab.text = "List"
+//                }
+//                1->{
+//                    tab.text = "Add"
+//                }
+//            }
+//
+//        }.attach()
+//
+//        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+//
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//                Toast.makeText(requireContext(), "ReSelected ${tab?.text}", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//                Toast.makeText(requireContext(), "UnSelected ${tab?.text}", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                Toast.makeText(requireContext(), "Selected ${tab?.text}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
 
     }
 

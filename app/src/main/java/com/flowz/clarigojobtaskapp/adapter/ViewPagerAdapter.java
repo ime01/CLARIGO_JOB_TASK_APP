@@ -12,8 +12,11 @@ import com.flowz.clarigojobtaskapp.ui.ListFragment;
 
 public class ViewPagerAdapter  extends FragmentStateAdapter {
 
-    public ViewPagerAdapter(FragmentManager fragmentManager, Lifecycle lifecycle) {
+    private final ListFragment.RowClickListenerFromFragment callback;
+
+    public ViewPagerAdapter(FragmentManager fragmentManager, Lifecycle lifecycle, ListFragment.RowClickListenerFromFragment callback) {
         super(fragmentManager, lifecycle);
+        this.callback = callback;
     }
 
     @NonNull
@@ -22,7 +25,7 @@ public class ViewPagerAdapter  extends FragmentStateAdapter {
         switch (position) {
 
             case 0:
-                return new ListFragment();
+                return new ListFragment(callback);
 
             case 1:
                 return new AddFragment();
